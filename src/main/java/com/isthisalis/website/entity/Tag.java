@@ -1,7 +1,7 @@
 package com.isthisalis.website.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.isthisalis.website.dto.TagDTO;
 
@@ -28,7 +28,7 @@ public class Tag {
     private @Getter @Setter @Column(nullable = false, unique = true) String name;
 
     @OneToMany(mappedBy = "tag") @Builder.Default @Getter
-    private List<Post> posts = new ArrayList<>();
+    private Set<Post> posts = new HashSet<>();
 
     public static Tag wrap(TagDTO tagDTO) {
         return Tag.builder()

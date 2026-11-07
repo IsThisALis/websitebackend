@@ -1,8 +1,8 @@
 package com.isthisalis.website.entity;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.isthisalis.website.dto.PostDTO;
@@ -37,10 +37,10 @@ public class Post {
     Instant createdAt;
 
   private @Builder.Default @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "post_comments") 
-    List<Comment> comments = new ArrayList<>();
+    Set<Comment> comments = new HashSet<>();
     
-  private @Getter @Setter @JsonIgnore @ManyToOne @JoinColumn(name = "tag")
-    Tag tag;
+  private @Getter @Setter @Builder.Default @JsonIgnore @ManyToMany @JoinColumn(name = "tag")
+    Set<Tag> tags = new HashSet<>();
 
   public static Post wrap(PostDTO postDTO) {
     return Post.builder()
