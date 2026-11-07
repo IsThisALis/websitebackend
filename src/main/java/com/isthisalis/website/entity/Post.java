@@ -39,7 +39,11 @@ public class Post {
   private @Builder.Default @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "post_comments") 
     Set<Comment> comments = new HashSet<>();
     
-  private @Getter @Setter @Builder.Default @JsonIgnore @ManyToMany @JoinColumn(name = "tag")
+  private @Getter @Setter @Builder.Default @JsonIgnore @ManyToMany @JoinTable(
+        name = "post_tags",
+        joinColumns = @JoinColumn(name = "post_id"),
+        inverseJoinColumns = @JoinColumn(name = "tag_id")
+      )
     Set<Tag> tags = new HashSet<>();
 
   public static Post wrap(PostDTO postDTO) {

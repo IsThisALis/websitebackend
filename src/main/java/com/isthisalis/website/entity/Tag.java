@@ -9,7 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +27,7 @@ public class Tag {
 
     private @Getter @Setter @Column(nullable = false, unique = true) String name;
 
-    @OneToMany(mappedBy = "tag") @Builder.Default @Getter
+    @ManyToMany(mappedBy = "tags") @Builder.Default @Getter
     private Set<Post> posts = new HashSet<>();
 
     public static Tag wrap(TagDTO tagDTO) {
