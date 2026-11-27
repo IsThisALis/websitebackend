@@ -22,6 +22,7 @@ public class SecurityConfig {
       .csrf(csrf -> csrf.disable())
       .sessionManagement(session -> { session.sessionCreationPolicy(SessionCreationPolicy.STATELESS); } );
     httpsec.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/error").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/posts/*/comments").permitAll()
                 .requestMatchers(HttpMethod.GET,"/api/posts", "/api/about", "/api/projects", "/api/posts/*/comments", "/api/health").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/posts/**", "/api/about/**", "/api/projects/**", "/api/posts/*/comments/**").permitAll()
