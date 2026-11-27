@@ -1,5 +1,6 @@
 package com.isthisalis.website.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,11 +19,21 @@ public class AboutService {
 
 
     public AboutDTO getAbout() {
-        return AboutDTO.wrap(repository.findAll().getLast());
+        try {
+            return AboutDTO.wrap(repository.findAll().getLast());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public void createAbout(AboutDTO aboutDTO) {
-        repository.save(About.wrap(aboutDTO));
+        try {
+            repository.save(About.wrap(aboutDTO));
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     public void editAbout(AboutDTO aboutDTO) {
@@ -34,7 +45,6 @@ public class AboutService {
         about.setContent(aboutDTO.getContent());
         about.setTechstack(aboutDTO.getTechStack());
     }
-
 
     public void deleteAbout() {
         repository.deleteById(1L);
