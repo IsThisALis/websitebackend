@@ -56,6 +56,11 @@ public class PostController {
         return postService.getAllPosts();
     }
 
+    @GetMapping("/{postId}")
+    public PostDTO getPost(@PathVariable long postId) {
+        return postService.getPost(postId);
+    }
+
 
     @DeleteMapping("/{postId}/delete")
     public void deletePost(@PathVariable long postId) {
